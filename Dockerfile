@@ -31,8 +31,10 @@ RUN git submodule update --init && \
   python -c "import pymesh; pymesh.test()" && \
   python $PYMESH_PATH/docker/patches/patch_wheel.py
 
-WORKDIR /root/
-COPY ./ .
+WORKDIR /app
+COPY . /app
 
-ENTRYPOINT [ "python" ]
-CMD [ "app.py" ]
+RUN pwd && ls -la && cat app.py
+
+ENTRYPOINT ["python"]
+CMD ["app.py"]

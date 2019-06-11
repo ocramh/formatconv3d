@@ -9,5 +9,5 @@ docker-build:
 docker-run:
 	docker run --rm \
 		--name formatconv3d \
-		--mount src="$(PWD)",target=/root,type=bind \
-		$(DOCKER_IMAGE_NAME):$(TAG) .
+		--mount src="$(PWD)",target=/app,type=bind \
+		$(DOCKER_IMAGE_NAME):$(TAG)
