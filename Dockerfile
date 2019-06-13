@@ -34,7 +34,7 @@ RUN git submodule update --init && \
 WORKDIR /app
 COPY . /app
 
-RUN pwd && ls -la && cat app.py
+RUN ls -la
 
 ENTRYPOINT ["python"]
-CMD ["app.py"]
+CMD ["app.py", "input_dir"]
