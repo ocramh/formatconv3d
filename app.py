@@ -22,6 +22,7 @@ def convert_files_in_dir(input_dir):
 
     print("files will be saved in %s" % save_to_dir)
     file_converted = 0
+    file_error = 0
 
     for f in os.listdir(input_dir):
         name, ext = os.path.splitext(f)
@@ -30,12 +31,18 @@ def convert_files_in_dir(input_dir):
             print('skipping file %s' % name)
             continue
 
-        mesh = pymesh.load_mesh(os.path.join(input_dir, f))
-        pymesh.save_mesh(os.path.join(
-            'converted_files', '{}.obj'.format(name)), mesh)
-        file_converted = file_converted + 1
+        try:
+            mesh = pymesh.load_mesh(os.path.join(input_dir, f))
+            pymesh.save_mesh(os.path.join(
+                'converted_files', '{}.obj'.format(name)), mesh)
+            file_converted = file_converted + 1
+        except RuntimeError:
+            print('error conveting file {}'.format(name))
+            file_error = file_error + 1
+            continue
 
-    print('job completed. total files converted: {}'.format(file_converted))
+    print('job completed. total files converted: {}. total errors: {}'.format(
+        file_converted, file_error))
 
 
 if __name__ == '__main__':
